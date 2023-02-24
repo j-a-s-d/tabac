@@ -1,0 +1,8 @@
+// this is a comment
+    if (x == 0)
+        // another comment
+        do
+            // another one
+            doSomething();
+        while (true);
+

@@ -1,0 +1,27 @@
+#include <stdint.h>
+#include <stdio.h>
+
+void generate_fibonaccis(int amount, uint64_t *buffer)
+  buffer[0] = 1;
+  buffer[1] = 1;
+  for (int i = 2; i < amount; ++i)
+    buffer[i] = buffer[i - 2] + buffer[i - 1];
+
+void print_fibonaccis(int amount, uint64_t *buffer)
+  for (int i = 0; i < amount; i++)
+    printf("%ju\n", buffer[i]);
+
+void announce_fibonaccis(int amount)
+  printf("[EN] Now let's generate and print %d fibonaccis!\n", amount);
+  printf("[ES] Ahora vamos a generar e imprimir %d fibonaccis!\n", amount);
+  printf("[PT] Agora vamos gerar e imprimir %d fibonaccis!\n", amount);
+
+#define NUMBERS_AMOUNT 20
+
+int main()
+  announce_fibonaccis(NUMBERS_AMOUNT);
+  uint64_t buffer[NUMBERS_AMOUNT];
+  generate_fibonaccis(NUMBERS_AMOUNT, buffer);
+  print_fibonaccis(NUMBERS_AMOUNT, buffer);
+  return 0;
+

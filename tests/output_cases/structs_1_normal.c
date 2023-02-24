@@ -1,0 +1,18 @@
+ struct Sample {
+   byte field1;
+   int field2;
+ };
+
+  struct Person {
+    int age;
+  };
+
+   struct Animal {
+     // this
+     int age;
+   };
+
+struct Thing {};
+
+  // that
+

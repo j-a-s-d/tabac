@@ -1,0 +1,11 @@
+if (x == true) {
+  some();
+}
+else if (age < 25) {
+  // that
+  age++;
+  another();
+}
+
+if (x == true) {} else {};
+

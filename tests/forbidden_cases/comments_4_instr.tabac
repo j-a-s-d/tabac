@@ -1,0 +1,2 @@
+char* a_str = "Text. // not allowed";
+

@@ -1,0 +1,7 @@
+__try {
+  doSomething();
+}
+__finally {
+  doSomethingElse();
+}
+

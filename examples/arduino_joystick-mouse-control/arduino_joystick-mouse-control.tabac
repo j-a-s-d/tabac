@@ -1,0 +1,84 @@
+// this is the code, adapted to tabac, you can find at:
+// https://www.arduino.cc/en/Tutorial/BuiltInExamples/JoystickMouseControl
+
+#include "Mouse.h"
+
+// set pin numbers for switch, joystick axes, and LED:
+// switch to turn on and off mouse control
+const int switchPin = 2;
+// input pin for the mouse pushButton
+const int mouseButton = 3;
+// joystick X axis
+const int xAxis = A0;
+// joystick Y axis
+const int yAxis = A1;
+// Mouse control LED
+const int ledPin = 5;
+
+// parameters for reading the joystick:
+// output range of X or Y movement
+int range = 12;
+// response delay of the mouse, in ms
+int responseDelay = 5;
+// resting threshold
+int threshold = range / 4;
+// resting position value
+int center = range / 2;
+
+// whether or not to control the mouse
+bool mouseIsActive = false;
+// previous switch state
+int lastSwitchState = LOW;
+
+void setup()
+  // the switch pin
+  pinMode(switchPin, INPUT);
+  // the LED pin
+  pinMode(ledPin, OUTPUT);
+  // take control of the mouse:
+  Mouse.begin();
+
+void loop()
+  // read the switch:
+  int switchState = digitalRead(switchPin);
+  // if it's changed and it's high, toggle the mouse state:
+  if (switchState != lastSwitchState)
+    if (switchState == HIGH)
+      mouseIsActive = !mouseIsActive;
+      // turn on LED to indicate mouse state:
+      digitalWrite(ledPin, mouseIsActive);
+  // save switch state for next comparison:
+  lastSwitchState = switchState;
+  // read and scale the two axes:
+  int xReading = readAxis(A0);
+  int yReading = readAxis(A1);
+  // if the mouse control state is active, move the mouse:
+  if (mouseIsActive)
+    Mouse.move(xReading, yReading, 0);
+  // read the mouse button and click or not click:
+  // if the mouse button is pressed:
+  if (digitalRead(mouseButton) == HIGH)
+    // if the mouse is not pressed, press it:
+    if (!Mouse.isPressed(MOUSE_LEFT))
+      Mouse.press(MOUSE_LEFT);
+  // else the mouse button is not pressed:
+  else
+    // if the mouse is pressed, release it:
+    if (Mouse.isPressed(MOUSE_LEFT))
+      Mouse.release(MOUSE_LEFT);
+  delay(responseDelay);
+
+//  reads an axis (0 or 1 for x or y) and scales the analog input range to a range from 0 to <range>
+
+int readAxis(int thisAxis)
+  // read the analog input:
+  int reading = analogRead(thisAxis);
+  // map the reading from the analog input range to the output range:
+  reading = map(reading, 0, 1023, 0, range);
+  // if the output reading is outside from the rest position threshold, use it:
+  int distance = reading - center;
+  if (abs(distance) < threshold)
+    distance = 0;
+  // return the distance for this axis:
+  return distance;
+

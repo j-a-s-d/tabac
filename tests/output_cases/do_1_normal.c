@@ -1,0 +1,5 @@
+do {
+  doSomething();
+}
+while (true);
+
