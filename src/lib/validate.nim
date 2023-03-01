@@ -40,33 +40,33 @@ template detectMultilineComment(rawLine: string): bool =
 type
   BlockInfo = tuple
     openNumber: int
+    openIndentation: int
     closeIndentation: int
-const RESET_BLOCK_INFO: BlockInfo = (openNumber: -1, closeIndentation: -1)
+const DEFAULT_BLOCK_INFO: BlockInfo = (openNumber: -1, openIndentation: -1, closeIndentation: -1)
 
 proc validateInputLines*(origin: string, lines: InputLines, onForbidenContentHandler: OnForbidenTabacContent): bool =
   var level: seq[BlockInfo] = @[];
-  var last: BlockInfo = RESET_BLOCK_INFO
+  var last: BlockInfo = DEFAULT_BLOCK_INFO
   for il in lines:
-    let isCodeLine = not il.isComment and not il.isEmpty and not il.isDirective
-    if isCodeLine:
+    func err(code: string): bool =
+      onForbidenContentHandler(origin, il.original.number, code)
+      return false
+    let isInsideBlock = len(level) > 0
+    if not il.isComment and not il.isEmpty and not il.isDirective:
       if detectTrailingComment(il.original.raw):
-        onForbidenContentHandler(origin, il.original.number, "TABAC_ERRORS.FORBIDDEN_TRAILING_COMMENT")
-        return false
+        return err("TABAC_ERRORS.FORBIDDEN_TRAILING_COMMENT")
       elif detectMultilineComment(il.original.raw):
-        onForbidenContentHandler(origin, il.original.number, "TABAC_ERRORS.FORBIDDEN_MULTILINE_COMMENT")
-        return false
+        return err("TABAC_ERRORS.FORBIDDEN_MULTILINE_COMMENT")
       elif detectInvalidCode(il):
-        onForbidenContentHandler(origin, il.original.number, "TABAC_ERRORS.FORBIDDEN_CODE_LINE")
-        return false
+        return err("TABAC_ERRORS.FORBIDDEN_CODE_LINE")
       if il.opensBlock:
-        last = RESET_BLOCK_INFO
-        level.push(( openNumber: il.original.number, closeIndentation: -1 ))
-      elif il.closesBlock and len(level) > 0:
+        last = DEFAULT_BLOCK_INFO
+        level.push(( openNumber: il.original.number, openIndentation: il.indentation, closeIndentation: -1 ))
+      elif il.closesBlock and isInsideBlock:
         last = level.pop()
         last.closeIndentation = il.indentation
-    elif last.closeIndentation > 0:
-      if il.indentation >= last.closeIndentation:
-        onForbidenContentHandler(origin, il.original.number, "TABAC_ERRORS.FORBIDDEN_NONCODE_LINE")
-        return false
+    elif (last.closeIndentation > 0 and il.indentation >= last.closeIndentation) or
+      (il.isDirective and isInsideBlock and level.peek(DEFAULT_BLOCK_INFO).openIndentation > il.indentation):
+      return err("TABAC_ERRORS.FORBIDDEN_NONCODE_LINE")
   return true
 

@@ -6,6 +6,7 @@ import
 reexport ../../src/lib/api, api
 
 var DefaultPreferences = (
+  MessagesLanguageCode: "en",
   SpacesPerTab: 4,
   StripCommentLines: false,
   BlankLinesRemoval: BLANK_LINES_REMOVAL_SHRINK

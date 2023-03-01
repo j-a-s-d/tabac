@@ -1,0 +1,6 @@
+#ifdef TEST
+struct ABC
+  struct DEF
+    int x;
+#endif
+

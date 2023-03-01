@@ -1,0 +1,21 @@
+#ifndef MY_DEF_H
+#define MY_DEF_H
+typedef struct Def Def;
+struct Def
+  void (* const test)(char *);
+// forced to be closed
+#endif
+
+#ifdef BLAH
+struct Hey
+  float something;
+
+#endif
+
+#ifdef TEST
+struct ABC
+  struct DEF
+    int x;
+
+#endif
+

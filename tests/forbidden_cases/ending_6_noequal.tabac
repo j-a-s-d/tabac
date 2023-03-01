@@ -1,0 +1,5 @@
+struct ABC
+   int x;
+ABC instance
+   123,
+

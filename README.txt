@@ -13,6 +13,7 @@ DESCRiPTiON
 HiSTORY
 -------
 
+  . 1.1.0 . 01.mar.2023 . directives handling improvements
   . 1.0.0 . 24.feb.2023 . first public release
   . 0.1.0 . 23.feb.2023 .
   . 0.0.9 . 22.feb.2023 .
@@ -67,7 +68,7 @@ CHARACTERiSTiCS
 
     - finish with any of the following characters:
 
-        ')', ';', ':', ',' or '\'
+        ')', ';', ':', ',', '\' or '='
 
     - or, be in the following single keyword group:
 
@@ -76,6 +77,7 @@ CHARACTERiSTiCS
     - or, start with any of the following keywords:
 
         'enum', 'struct', 'union',
+        'typedef', 'static', 'const',
         '__try', '__except' or '__finally'
 
   * FORBiDDEN MISLEADING CONTENT
@@ -107,22 +109,39 @@ CHARACTERiSTiCS
         else
           // this line will be granted
           x = 2;
-          // but this will be forbidden
+          // but this will be denied
 
-    and also have in mind that leading empty lines are removed by default
-    and that's not negotiable
+    - also keep present that if you are opening blocks inside conditional
+      defines you will have to close them before exiting the conditional
+      code, you can do that with a comment line or even a blank line, for
+      example:
+
+        #ifdef X
+          struct ABC
+            int field;
+        
+        #endif
+
+    and also have in mind that any leading empty lines, at the beginning
+    of the file, will be removed by default and that's not negotiable
 
   * RELEVANT SiDE NOTES
 
     also, there are some things to mention on very specific corner cases:
 
-    - inline struct and enum variable declarations are not handled,
-      instead declare properly in a new line, for example:
+    - inline struct, enum variable and typedef alias declarations are not
+      handled, instead declare properly in a new line, for example:
 
         struct Person
           int id;
           int age;
         struct Person pA, pB, p20[20];
+
+      or:
+
+        struct tag_name
+           int x;
+        typedef struct tag_name some_alias;
 
     - in switches, cases and default sentences must be placed with a
       higher indentation than the switch statement to be filiated as
@@ -174,6 +193,9 @@ CHARACTERiSTiCS
         "strip-comment-lines": false,
         "blank-lines-removal": "shrink"
       }
+
+    just place it as usual in the directory where you are going to run
+    tabac, so it can find it
 
   * FiNAL OBViOUS REMiNDER
 

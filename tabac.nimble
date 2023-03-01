@@ -1,4 +1,4 @@
-version     = "1.0.0"
+version     = "1.1.0"
 author      = "Javier Santo Domingo"
 description = "tabac"
 license     = "MIT"

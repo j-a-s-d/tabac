@@ -24,8 +24,9 @@ proc preprocessInputLines*(lines: InputLines, preferences: TabacPreferences): st
           if state.lastLineWasEmpty:
             continue
     state.currentClosingSemicolon = line.closingSemicolon
-    while state.lastBlockIndentation > line.indentation and len(state.parentBlocks) > 0:
-      result &= doCloseBlock(state)
+    if not line.isDirective:
+      while state.lastBlockIndentation > line.indentation and len(state.parentBlocks) > 0:
+        result &= doCloseBlock(state)
     if line.isComment and preferences.StripCommentLines:
       continue
     result &= (if hasContent(result): STRINGS_EOL else: STRINGS_EMPTY) &

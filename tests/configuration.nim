@@ -8,6 +8,7 @@ use strutils,split
 
 proc getPreferencesFor(name: string): TabacPreferences =
   (
+    MessagesLanguageCode: "en",
     SpacesPerTab: if name == "tabs_8": 8 else: 4,
     StripCommentLines: if name == "comments_strip": true else: false,
     BlankLinesRemoval: if name == "blank_keep": BLANK_LINES_REMOVAL_KEEP
