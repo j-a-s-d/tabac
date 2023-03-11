@@ -43,10 +43,10 @@ template getESMessages(): JArrayBuilder =
     .addMessage(APP_ERROR.INEXISTENT, "no existe: $1")
     .addMessage(APP_ERROR.EMITTED, "emitido: $1 ($2 bytes)")
     .addMessage(APP_ERROR.UNWRITABLE, "no pudo ser escrito: $1")
-    .addMessage(TABAC_ERRORS.FORBIDDEN_TRAILING_COMMENT, "comentario trasero prohibido y/o string engañoso encontrado (remover o escapar)")
-    .addMessage(TABAC_ERRORS.FORBIDDEN_MULTILINE_COMMENT, "comentario multilinea prohibido y/o string engañoso encontrado (remover o escapar)")
-    .addMessage(TABAC_ERRORS.FORBIDDEN_CODE_LINE, "linea de código prohibida encontrada (aplicar cualquiera de las reglas de conceción)")
-    .addMessage(TABAC_ERRORS.FORBIDDEN_NONCODE_LINE, "linea de no-código prohibida encontrada (aplicar cualquiera de las reglas de conceción)")
+    .addMessage(TABAC_ERRORS.FORBIDDEN_TRAILING_COMMENT, "<$1:$2> comentario trasero prohibido y/o string engañoso encontrado (remover o escapar)")
+    .addMessage(TABAC_ERRORS.FORBIDDEN_MULTILINE_COMMENT, "<$1:$2> comentario multilinea prohibido y/o string engañoso encontrado (remover o escapar)")
+    .addMessage(TABAC_ERRORS.FORBIDDEN_CODE_LINE, "<$1:$2> linea de código prohibida encontrada (aplicar cualquiera de las reglas de conceción)")
+    .addMessage(TABAC_ERRORS.FORBIDDEN_NONCODE_LINE, "<$1:$2> linea de no-código prohibida encontrada (aplicar cualquiera de las reglas de conceción)")
 
 template getPTMessages(): JArrayBuilder =
   newJArrayBuilder()
@@ -55,10 +55,10 @@ template getPTMessages(): JArrayBuilder =
     .addMessage(APP_ERROR.INEXISTENT, "não existe: $1")
     .addMessage(APP_ERROR.EMITTED, "emitido: $1 ($2 bytes)")
     .addMessage(APP_ERROR.UNWRITABLE, "não pode ser escrito: $1")
-    .addMessage(TABAC_ERRORS.FORBIDDEN_TRAILING_COMMENT, "comentário traseiro proibido e/ou string enganoso encontrado (remover ou escapar)")
-    .addMessage(TABAC_ERRORS.FORBIDDEN_MULTILINE_COMMENT, "comentário multilinha proibido e/ou string enganoso encontrado (remover ou escapar)")
-    .addMessage(TABAC_ERRORS.FORBIDDEN_CODE_LINE, "linha de código proibida encontrada (aplicar qualquer uma das regras de concessão)")
-    .addMessage(TABAC_ERRORS.FORBIDDEN_NONCODE_LINE, "linha de não-código proibida encontrada (aplicar qualquer uma das regras de concessão)")
+    .addMessage(TABAC_ERRORS.FORBIDDEN_TRAILING_COMMENT, "<$1:$2> comentário traseiro proibido e/ou string enganoso encontrado (remover ou escapar)")
+    .addMessage(TABAC_ERRORS.FORBIDDEN_MULTILINE_COMMENT, "<$1:$2> comentário multilinha proibido e/ou string enganoso encontrado (remover ou escapar)")
+    .addMessage(TABAC_ERRORS.FORBIDDEN_CODE_LINE, "<$1:$2> linha de código proibida encontrada (aplicar qualquer uma das regras de concessão)")
+    .addMessage(TABAC_ERRORS.FORBIDDEN_NONCODE_LINE, "<$1:$2> linha de não-código proibida encontrada (aplicar qualquer uma das regras de concessão)")
 
 proc loadMessages*(i18n: RodsterAppI18n) =
   template loadLanguageMessages(language: string, builder: JArrayBuilder) =

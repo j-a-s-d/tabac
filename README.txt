@@ -13,6 +13,7 @@ DESCRiPTiON
 HiSTORY
 -------
 
+  . 1.1.1 . 11.mar.2023 . small fixes, lite-xl plugin & xam update
   . 1.1.0 . 01.mar.2023 . directives handling improvements
   . 1.0.0 . 24.feb.2023 . first public release
   . 0.1.0 . 23.feb.2023 .
@@ -95,12 +96,12 @@ CHARACTERiSTiCS
       them at all, in fact it forbids '//' at any part of the line except
       in the beginning of it, so if you need to add '//' inside a string
       just escape it as \x2F\x2F or other equivalent sequence of chars
-  
+
     - same happens with the multiline comment marker, tabac disallows
       '/*' at any part of the line except for the case where '*/' closes
       the line, so if you need to add '/*' inside a string just escape it
       as \x2F\x2A or any other equivalent sequence of chars
-  
+
     - non-code (empty, comment and directive) lines after the last line
       of code of a block are not granted, for example:
 
@@ -110,17 +111,6 @@ CHARACTERiSTiCS
           // this line will be granted
           x = 2;
           // but this will be denied
-
-    - also keep present that if you are opening blocks inside conditional
-      defines you will have to close them before exiting the conditional
-      code, you can do that with a comment line or even a blank line, for
-      example:
-
-        #ifdef X
-          struct ABC
-            int field;
-        
-        #endif
 
     and also have in mind that any leading empty lines, at the beginning
     of the file, will be removed by default and that's not negotiable
@@ -169,6 +159,17 @@ CHARACTERiSTiCS
         #endif
           z = 1;
 
+    - also keep present that if you are opening blocks inside conditional
+      defines you will have to close them before exiting the conditional
+      code, you can do that with a comment line or even a blank line, for
+      example:
+
+        #ifdef X
+          struct ABC
+            int field;
+        
+        #endif
+
   * SOME CONFiGURABLE OPTiONS
 
     in the tabac.cfg file (located in the same directory than the tabac
@@ -182,7 +183,7 @@ CHARACTERiSTiCS
     - keep untouched or totally remove (default) comment lines
 
     - delete, keep or shrink (erase repeated leaving only one, which is
-      the default behaviour) blank lines
+      the default behaviour) empty/blank lines
 
     if the tabac.cfg file is not there, you can create it with a json
     content like this:

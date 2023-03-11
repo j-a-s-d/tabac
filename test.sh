@@ -12,4 +12,3 @@ runSuite forbidden
 runSuite output
 runSuite configuration
 cd ..
-

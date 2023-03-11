@@ -1,0 +1,5 @@
+static const uint32_t twobythree[2][3] = {
+    { 0xabcdef01L, 0xabcdef01L, 0xabcdef01L, },
+    { 0xabcdef01L, 0xabcdef01L, 0xabcdef01L, },
+};
+

@@ -51,7 +51,7 @@ proc adjustBlockInstructions(il: var InputLine, state: var LevelState) =
     if isSelfClosing or isAfterParen:
       il.opensBlock = true
       il.closesBlock = not (isAfterParen and il.firstPart == C_LANGUAGE.SWITCH_KEYWORD)
-  il.closingSemicolon = il.opensBlock and il.firstPart in C_CLOSING_SEMICOLON_STRUCTURES
+  il.closingSemicolon = il.opensBlock and (il.firstPart in C_CLOSING_SEMICOLON_STRUCTURES or lastChar == CHARS_EQUAL)
 
 proc transformInputLines*(lines: InputLines): InputLines =
   result = lines
