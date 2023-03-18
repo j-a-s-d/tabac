@@ -9,7 +9,7 @@ import
   rodster, xam,
   app / [setup, program, settings]
 
-let app = newRodsterApplication("tabac", "1.1.1")
+let app = newRodsterApplication("tabac", "1.2.0")
 setupSettingsModel(app.getSettings().getModel())
 app.setInitializationHandler(onInitialize)
 app.setMainRoutine(programRun)

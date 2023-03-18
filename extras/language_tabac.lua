@@ -1,5 +1,5 @@
 --
--- tabac 1.1.1 plugin for Lite XL editor
+-- tabac 1.2.0 plugin for Lite XL editor
 --
 -- NOTE: the following is based in language_c.lua plugin
 --
@@ -9,7 +9,7 @@ local syntax = require "core.syntax"
 
 syntax.add {
   name = "tabac",
-  files = { "%.tabac$" },
+  files = { "%.tabac$", "%.tabah$" },
   comment = "//",
   patterns = {
     { pattern = "//.*",                  type = "comment" },

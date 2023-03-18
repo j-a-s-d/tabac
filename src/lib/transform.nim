@@ -40,7 +40,7 @@ proc shiftBlockInstructions(result: var InputLines) =
     state.lastWasEmptyOrDirective = result[index].isEmpty or result[index].isDirective
 
 proc adjustBlockInstructions(il: var InputLine, state: var LevelState) =
-  let lastChar = if len(il.lastPart) > 0: il.lastPart[^1] else: CHARS_SPACE
+  let lastChar = getLastChar(il.lastPart, CHARS_SPACE)
   if il.opensBlock:
     il.opensBlock = lastChar != CHARS_SEMICOLON
   else:

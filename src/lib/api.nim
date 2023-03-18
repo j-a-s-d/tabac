@@ -6,6 +6,7 @@ import
 
 const
   TABAC_EXTENSION = ".tabac"
+  TABAH_EXTENSION = ".tabah"
 
 proc tabac(origin: string, text: TextLines, preferences: TabacPreferences, onForbidenContentHandler: OnForbidenTabacContent, code: var string): bool =
   let lines: InputLines = transformInputLines(loadInputLines(text, preferences))
@@ -27,7 +28,9 @@ export
   preferences,
   validate.OnForbidenTabacContent,
   c.C_EXTENSION,
+  c.H_EXTENSION,
   TABAC_EXTENSION,
+  TABAH_EXTENSION,
   tabacText,
   tabacFile
 

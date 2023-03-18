@@ -13,6 +13,7 @@ DESCRiPTiON
 HiSTORY
 -------
 
+  . 1.2.0 . 18.mar.2023 . .tabah extension support & xam update
   . 1.1.1 . 11.mar.2023 . small fixes, lite-xl plugin & xam update
   . 1.1.0 . 01.mar.2023 . directives handling improvements
   . 1.0.0 . 24.feb.2023 . first public release
@@ -217,7 +218,8 @@ USAGE
     tabac receives two parameters from the command line, the input file
     and the output file (this one is optional, if not provided then the
     output filename will be formed by the name without extension of the
-    input filename and the extension .c) which will be written and, if
+    input filename and the extension .c, or .h depending if the input
+    file extension is .tabac or .tabah) which will be written and, if
     it does exist, overwriten with the generated c source code
 
   * SYNTAX
@@ -228,12 +230,38 @@ USAGE
 
          tabac foo.tabac bar.c
 
+           -- tries to generate bar.c from foo.tabac
+
+         tabac aheader.tabah aheader.h
+
+           -- tries to generate aheader.h from aheader.tabah
+
          tabac abc1.tabac def2.other
+
+           -- tries to generate def2.other from abc1.tabac
 
          tabac something anything.c
 
+           -- tries to generate anything.c from something.tabac if exists
+              or to generate anything.c from something.tabah if exists
+
          tabac fromFile.tabac toFile
+
+           -- tries to generate toFile.c from fromFile.tabac
+
+         tabac fromFile.tabah toFile
+
+           -- tries to generate toFile.h from fromFile.tabah
+
+         tabac sample.tabah
+
+           -- tries to generate sample.h from sample.tabah
 
          tabac sample.tabac
 
+           -- tries to generate sample.c from sample.tabac
+
          tabac myFile
+
+           -- tries to generate myFile.c from myFile.tabac if exists
+              or to generate myFile.h from myFile.tabah if exists
